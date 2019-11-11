@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+int G[101][101],V[101][101],n1[101];
+int n;
+
+void DFS(int p,int i){
+    int j;
+    V[p][i]==0;
+    printf("%d",p+1);
+        for(j=0;j<n;j++){
+        if(G[p][j]==1 && V[p][j]==0)
+            DFS(i,j);
+    }
+}
+
+int main(){
+	int i,j,m,x=1,y,l=0;
+	
+	scanf("%d %d",&n,&m);
+	
+	for(i=0;i<m;i++){
+	scanf(" %d %d",&x,&y);	
+	G[x-1][y-1]=G[y-1][x-1]=1;
+	}
+	
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			if(G[i][j]==1){
+			n1[j]++;
+		  }
+		}
+	}
+	
+	for(i=0;i<n;i++){
+		
+		if(n1[i]%2!=0){
+		++l;
+		x=n1[i];
+		}	
+	}
+	
+	if(l==0 || l==2)
+		DFS(x-1);
+		
+	else printf("0");
+	
+	return 0;
+}

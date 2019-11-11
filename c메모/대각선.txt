@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main()
+{
+
+   freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  int n,j,i,i1,num,k;
+  int a[9][9];
+
+scanf("%d",&n);
+num=n;
+
+for(i=0;i<n;i++){
+
+    i1=i;
+  for(j=0;j<=i;j++){
+
+    a[i1][j]=num;
+    num++;i1--;
+
+  }
+
+}
+k=0;
+for(j=1;j<n;j++){
+     i1=j;
+for(i=n-1;i>k;i--){
+
+    a[i][i1]=num;
+    num++;i1++;
+
+}k++;
+}
+
+for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+        printf("%d ",a[i][j]);
+    }printf("\n");
+}
+
+
+ return 0;
+}

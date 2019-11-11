@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main(){
+   freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+
+
+  int ar[30][30]={0};
+  int n,i,f1,f2,num;
+
+  scanf("%d",&n);
+  f1=0;
+  f2=n/2;
+  num=1;
+
+  ar[f1][f2]=num;
+
+  for(i=1;i<n*n;i++){
+    --f1;
+    ++f2;
+    ++num;
+    do{
+
+    if((0>f1 || f1>=n) && (0>f2 || f2>=n)){
+        f1+=2;
+        f2-=1;
+    }
+        else if(0>f1 || f1>=n){
+        f1=n-1;
+    }
+        else if(0>f2 || f2>=n){
+        f2=0;
+    }
+    else if(ar[f1][f2]!=0){
+        f1+=2;
+        f2-=1;
+    }
+
+    }while(ar[f1][f2]!=0);
+
+    ar[f1][f2]=num;
+  }
+
+  for(f1=0;f1<n;f1++){
+        for(f2=0;f2<n;f2++){
+            printf("%d ",ar[f1][f2]);
+        }printf("\n");
+  }
+
+}

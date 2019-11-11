@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+
+freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+
+   char A[10]={0};
+   char B[10]={0};
+    int a,a1=0,b,b1=0,i,j,r1,r2,s1=0,s2=0,i1,j1,k=1,k1=1;
+
+    scanf("%s %s",A,B);
+
+    r1=strlen(A);
+    r2=strlen(B);
+
+    for(i=0;i<r1;i++){
+        if('A'<=A[i] && A[i]<='Z')
+            A[i]=A[i]-'A'+10;
+        else
+            A[i]-='0';
+
+        if(a1<A[i])
+            a1=A[i];
+    }
+
+    for(i=0;i<r2;i++){
+        if('A'<=B[i] && B[i]<='Z')
+            B[i]=B[i]-'A'+10;
+        else
+            B[i]-='0';
+
+        if(b1<B[i])
+            b1=B[i];
+    }
+
+    i1=1;
+    for(a=1;a<=k;a++){
+
+        for(i=r1-1;0<=i;i--){
+
+        s1+=A[i]*i1;
+
+
+        i1*=a;
+
+    }
+       j1=1;
+
+        for(b=1;b<=k1;b++){
+
+            for(i=r2-1;0<=i;i--){
+
+            s2+=B[i]*j1;
+
+
+            j1*=b;
+            }
+
+
+            if(s1==s2 && (b1<b && a1<a)){
+
+            printf("%d %d",a,b);
+
+            return 0;
+        }
+            j1=1;
+             s2=0;
+
+        if(k1<36)
+        k1++;
+        }
+        if(k<36)
+        k++;
+
+
+        s1=0;
+        i1=1;
+
+
+    }
+
+    printf("0 0");
+    return 0;
+}

@@ -1,0 +1,51 @@
+
+#include <stdio.h>
+
+int main()
+{
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    int n,i,l,m;
+    int nm[30][30]={0};
+    scanf("%d",&n);
+
+    l=0;
+    m=n/2;
+
+    for(i=0;i<n*n;i++){
+        nm[l][m]=i+1;
+
+
+        l--;
+        m++;
+
+
+        while((l>n-1 || l<0)||(m>n-1 || m<0)){
+
+        if((l>n-1 || l<0)&&(m>n-1 || m<0)){
+            l+=2;
+            m-=1;
+        }
+        else if(l>=n || l<0)
+            l=n-1;
+        else if(m>=n || m<0)
+            m=0;
+
+
+
+        }
+        if(nm[l][m]!=0){
+            l+=2;
+            m-=1;
+        }
+
+    }
+
+    for(i=0;i<n;i++){
+        for(l=0;l<n;l++){
+        printf("%d ",nm[i][l]);
+    }printf("\n");
+    }
+
+ return 0;
+}

@@ -1,0 +1,77 @@
+#include <stdio.h>
+int main()
+
+{
+
+   freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+
+int i,i1,j,n1,k,n,k1;
+float sum=0;
+char c;
+int N[100];
+int N1[100];
+
+scanf("%d",&n);
+
+for(i=0;i<n;i++){
+    scanf("%d",&N[i]);
+    sum+=N[i];
+
+
+}
+n1=n;
+
+N[n1]=999;
+
+for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+     if(N[j]>N[j+1]){
+        k=N[j];
+        N[j]=N[j+1];
+        N[j+1]=k;
+     }
+}
+}
+
+
+
+k=0;
+
+do{
+   scanf("%d",&N1[k]);
+   k++;
+}while(N1[k-1]!=0);
+
+
+for(i1=0;i1<k-1;i1++){
+        if(N1[i1]>sum/n){
+            sum-=N[0];
+            sum+=N1[i1];
+            N[0]=N1[i1];
+        }
+        else if(N1[i1]<sum/n){
+            sum-=N[n1-1];
+            sum+=N1[i1];
+            N[n1-1]=N1[i1];
+        }
+    for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+     if(N[j]>N[j+1]){
+        k1=N[j];
+        N[j]=N[j+1];
+        N[j+1]=k1;
+     }
+}
+}
+
+
+
+for(j=0;j<n;j++){
+        printf("%d ",N[j]);
+
+    return 0;
+}
+}
+printf("%2.f\n",sum/n);
+}

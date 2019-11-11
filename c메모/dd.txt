@@ -1,0 +1,7 @@
+<div style="width:170px; height:163px;"> </div>
+
+<div style="width:170px; height:90px;"> 
+<a href="이동할 페이지 주소">
+<img src="이미지 주소 복사"> 
+</a>
+</div> 

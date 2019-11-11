@@ -1,0 +1,149 @@
+#define USE_ARDUINO_INTERRUPTS true
+#include <PulseSensorPlayground.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial BTSerial(6, 7);
+
+const int PulseWire = 0;
+const int LED13 = 13;
+int Threshold = 500;
+
+PulseSensorPlayground pulseSensor;
+
+void setup(){
+  BTSerial.begin(9600);
+  Serial.begin(9600);
+
+  pulseSensor.analogInput(PulseWire);
+  pulseSensor.setThreshold(Threshold);
+
+  if(pulseSensor.begin()){
+    Serial.println("측정이 시작되었습니다");
+    }
+}
+
+void loop(){
+  int myBPM = pulseSensor.getBeatsPerMinute();
+
+  if(pulseSensor.sawStartOfBeat()){
+    Serial.println("A HeartBeat Happend");
+    Serial.print("BPM: ");
+    Serial.println(myBPM);
+    if(myBPM >= 140){
+      digitalWrite(LED13,HIGH);
+      BTSerial.write("위험");
+    }
+    delay(10);
+    digitalWrite(LED13,LOW);
+  }
+}
+
+
+/*************************************************************
+  Download latest Blynk library here:
+    https://github.com/blynkkk/blynk-library/releases/latest
+
+  Blynk is a platform with iOS and Android apps to control
+  Arduino, Raspberry Pi and the likes over the Internet.
+  You can easily build graphic interfaces for all your
+  projects by simply dragging and dropping widgets.
+
+    Downloads, docs, tutorials: http://www.blynk.cc
+    Sketch generator:           http://examples.blynk.cc
+    Blynk community:            http://community.blynk.cc
+    Follow us:                  http://www.fb.com/blynkapp
+                                http://twitter.com/blynk_app
+
+  Blynk library is licensed under MIT license
+  This example code is in public domain.
+
+ *************************************************************
+  =>
+  =>          USB HOWTO: http://tiny.cc/BlynkUSB
+  =>
+
+  You’ll need:
+   - Blynk App (download from AppStore or Google Play)
+   - Arduino Uno board
+   - Decide how to connect to Blynk
+     (USB, Ethernet, Wi-Fi, Bluetooth, ...)
+
+  There is a bunch of great example sketches included to show you how to get
+  started. Think of them as LEGO bricks  and combine them as you wish.
+  For example, take the Ethernet Shield sketch and combine it with the
+  Servo example, or choose a USB sketch and add a code from SendData
+  example.
+ *************************************************************/
+
+/* Comment this out to disable prints and save space */
+#define BLYNK_PRINT Serial
+
+#define USE_ARDUINO_INTERRUPTS true
+#include <PulseSensorPlayground.h>
+#include <BlynkSimpleStream.h>
+#include <SoftwareSerial.h>
+
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = "f5878f843dc54cf5967c28acddd9daab";
+
+SoftwareSerial SwSerial(3, 2); // RX, TX
+
+const int PulseWire = 0;
+int Threshold = 500;
+int sensor1 = 5;
+int sensor2 =4;
+
+PulseSensorPlayground pulseSensor;
+
+BLYNK_READ(V0)
+{
+  Blynk.virtualWrite(A0,bpm_value());
+}
+
+void setup()
+{
+  // Debug console
+  Serial.begin(9600);
+
+  // Blynk will work through SoftwareSerial
+  // Do not read or write this serial manually in your sketch
+  SwSerial.begin(9600);
+  Blynk.begin(SwSerial, auth);
+
+  pulseSensor.analogInput(PulseWire);
+  pulseSensor.setThreshold(Threshold);
+
+  pinMode(sensor1,INPUT);
+  pinMode(sensor2,INPUT);
+}
+
+void loop()
+{
+
+  Blynk.run();  
+  
+  int d1 = digitalRead(sensor1);
+  int d2 = digitalRead(sensor2);
+}
+
+
+
+float bpm_value(){ 
+  int myBPM = pulseSensor.getBeatsPerMinute();
+  int a1,a2;
+    a1=a2;
+    a2=myBPM;
+  
+    if(pulseSensor.sawStartOfBeat()){
+    Serial.print("BPM: ");
+    Serial.println(myBPM);
+  }
+      if(myBPM >= 140 && myBPM <= 80){
+      Blynk.notify("notice");
+  }
+      if(myBPM >= 160 && myBPM <= 60){
+      Blynk.email("sjoon627@naver.com", "emergency", "emergency");
+  }
+  return myBPM;
+}

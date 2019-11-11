@@ -1,0 +1,91 @@
+#include <stdio.h>
+int main()
+{
+
+    int A[10]={0};
+    int B[10]={0};
+    int a,a1=0,b,b1=0,i,j,r1,r2,s1=0,s2=0,i1,j1,k=1,k1=1;
+
+    scanf("%d %d",&a,&b);
+
+    i=10; j=1;
+
+    while(a!=0){
+        A[j]=a%i/(i/10);
+        a-=a%i;
+
+        i*=10; j++;
+    }
+     r1=j;
+
+     i=10; j=1;
+
+    while(b!=0){
+        B[j]=b%i/(i/10);
+        b-=b%i;
+
+        i*=10; j++;
+    }
+     r2=j;
+
+     for(i=0;i<r1;i++){
+        if(A[i]>a1)
+            a1=A[i];
+     }
+
+      for(i=0;i<r2;i++){
+        if(B[i]>b1)
+            b1=B[i];
+     }
+
+    printf("%d %d",a1,b1);
+
+    i1=1;
+    for(a=1;a<=k;a++){
+
+        for(i=1;i<=r1;i++){
+
+        s1+=A[i]*i1;
+
+        printf("%d %d\n",a,s1);
+        i1*=a;
+
+    }
+       j1=1;
+
+        for(b=1;b<=k1;b++){
+
+            for(i=1;i<=r2;i++){
+
+            s2+=B[i]*j1;
+
+            printf("%d %d\n",b,s2);
+            j1*=b;
+            }
+
+
+            if(s1==s2 && (b1<b && a1<a)){
+
+            printf("%d %d",a,b);
+
+            return 0;
+        }
+            j1=1;
+             s2=0;
+
+        if(k1<36)
+        k1++;
+        }
+        if(k<36)
+        k++;
+
+
+        s1=0;
+        i1=1;
+
+
+    }
+
+    printf("0 0");
+    return 0;
+}

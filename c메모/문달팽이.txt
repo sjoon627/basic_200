@@ -1,0 +1,65 @@
+#include <stdio.h>
+int main(){
+
+int i=1,l=1,f1=0,m,n,num=0,j=0;
+char c,f;
+char s[10][10]={0};
+
+scanf("%d %c %c",&n,&c,&f);
+s[1][n+1]=1; s[n+1][n]=1; s[n][0]=1;
+s[0][n]=1; s[n][n+1]=1; s[n+1][1]=1;
+
+
+
+if('A'<=f && f<='Z')
+    f1=1;
+
+if(c=='L')m=1;
+if(c=='R')m=2;
+
+do{
+   s[i][l]=f+num;
+   num++;
+   j++;
+
+   if(f1==1&&f+num>'Z')
+    num='A'-f;
+
+   switch(m){
+    case 1:i++;
+        if(s[i+1][l]>0){
+           if(c=='L')m=2;
+           if(c=='R')m=4;
+           }break;
+    case 2:l++;
+         if(s[i][l+1]>0){
+           if(c=='L')m=3;
+           if(c=='R')m=1;
+          }break;
+    case 3:i--;
+        if(s[i-1][l]>0){
+           if(c=='L')m=4;
+           if(c=='R')m=2;
+          }break;
+    case 4:l--;
+        if(s[i][l-1]>0){
+            if(c=='L')m=1;
+           if(c=='R')m=3;
+         }break;
+}
+}while(j<n*n);
+
+for(i=1;i<=n;i++){
+    for(l=1;l<=n;l++){
+
+        if(f1==0)
+        printf("%d ",s[i][l]-'1'+1);
+
+        if(f1==1)
+        printf("%c ",s[i][l]);
+    }
+    printf("\n");
+}
+
+return 0;
+}
