@@ -13,6 +13,8 @@ int main() {
 				c++;
 			if(n1==0 && c==1)
 				nc++;
+				
+				printf("%d",n1) ;
 		}
 	}
 		printf("%d",nc);
