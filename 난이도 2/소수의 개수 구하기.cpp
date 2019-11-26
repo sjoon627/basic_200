@@ -4,18 +4,17 @@ int main() {
 	
  scanf("%d",&n);
 	
-	for(i=2;i<n;i++){
+	for(i=2;i<=n;i++){
 		c=0;
 		n1=i;
 		
-		while(n1--){
+		while(--n1){
 			if(i%n1==0)
-				c++;
-			if(n1==0 && c==1)
-				nc++;
-				
-				printf("%d",n1) ;
+				++c;
+			if(n1==1 && c==1)
+				++nc;
 		}
+
 	}
 		printf("%d",nc);
 	return 0;
