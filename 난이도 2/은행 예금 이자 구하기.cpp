@@ -5,11 +5,9 @@ int main() {
 	
 	scanf("%lf %lf %lf",&m,&r,&y);
 	m1=m;
-	r/=100;
+	r=r/100+1;
 	
 	for(i=0;i<y;i++){
-		if(i!=0)
-		m+=m1;
 		m*=r;
 	}
 	
